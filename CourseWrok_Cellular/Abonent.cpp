@@ -16,27 +16,28 @@ Abonent::Abonent(string parsurname, string parname, string parmidname, string pa
 	current_plane = parplane;
 }
 #pragma region Getters_and_Setters
-string Abonent::GetSurname()
+const string Abonent::GetSurname()
 {
 	return currentFIO.surname;
 }
-string Abonent::GetName()
+const string Abonent::GetName()
 {
 	return currentFIO.name;
 }
-string Abonent::GetMidName()
+const string Abonent::GetMidName()
 {
 	return currentFIO.midname;
 }
-int Abonent::GetYear()
+const int Abonent::GetYear()
 {
+	
 	return this->year;
 }
-string Abonent::GetPhone()
+const string Abonent::GetPhone()
 {
 	return this->phone;
 }
-string Abonent::GetPlane()
+const string Abonent::GetPlane()
 {
 	return this->current_plane;
 }
@@ -64,4 +65,6 @@ void Abonent::SetPlane(string plane)
 {
 	this->current_plane = plane;
 }
+
+
 #pragma endregion

@@ -1,7 +1,2 @@
-﻿  Employers.cpp
-C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(13): error C4700:  использована неинициализированная локальная переменная "surname"
-C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(16): error C4700:  использована неинициализированная локальная переменная "name"
-C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(19): error C4700:  использована неинициализированная локальная переменная "midname"
-C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(25): error C4700:  использована неинициализированная локальная переменная "year"
-C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(28): error C4700:  использована неинициализированная локальная переменная "plane"
-C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(30): error C4700:  использована неинициализированная локальная переменная "abonent"
+﻿  Output.cpp
+  CourseWrok_Cellular.vcxproj -> C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\Debug\CourseWrok_Cellular.exe

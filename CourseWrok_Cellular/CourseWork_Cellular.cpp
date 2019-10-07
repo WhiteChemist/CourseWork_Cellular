@@ -2,11 +2,13 @@
 //
 
 #include <iostream>
+#include "Headers.h";
+#include <algorithm>
 
 int main()
 {
-	
-    std::cout << "Hello World!\n";
+	CheckInput("employers.txt");
+	system("pause");
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

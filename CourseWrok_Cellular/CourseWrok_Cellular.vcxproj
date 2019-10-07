@@ -154,6 +154,7 @@
     <ClCompile Include="Abonent.cpp" />
     <ClCompile Include="CourseWork_Cellular.cpp" />
     <ClCompile Include="Employers.cpp" />
+    <ClCompile Include="Output.cpp" />
     <ClCompile Include="Security.cpp" />
   </ItemGroup>
   <ItemGroup>
