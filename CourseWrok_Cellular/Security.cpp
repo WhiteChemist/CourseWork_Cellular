@@ -3,60 +3,27 @@
 #include <fstream>
 using namespace std;
 
-void CheckInput(string path)
+void checkInput(string path)
 {
-	int counter = 0;
-	bool isAdmin = false;
-	bool validLogin = false;
-	bool validPassword = false;
-	cout << "Input login:";
 	string login;
+	cout << "Input your login:";
 	cin >> login;
-	cout << endl << "Input password:";
 	string password;
+	cout << "Input your password:";
 	cin >> password;
-	string status;
-	cout << endl << "Input status:";
-	cin >> status;
-	try
+	vector<Employer>* employers = new vector <Employer>();
+	Administrator::getEmployers(employers, path);
+	for (int i = 0; i < (*employers).size(); i++)
 	{
-		std::string line;
-
-		std::ifstream in(path); // окрываем файл для чтения
-		if (in.is_open())
+		if ((*employers)[i].getLogin() == login && (*employers)[i].getPassword() == password && (*employers)[i].getStatus() == "admin")
 		{
-			while (getline(in, line))
-			{
-				if (line.find(login) != string::npos)
-					validLogin = true;
-				else if (line.find(password) != string::npos)
-					validPassword = true;
-				else if (line.find(status) != string::npos && status == "admin")
-					isAdmin = true;
-				else if (line.find(status) != string::npos && status == "employer")
-				{
-					isAdmin = false;
-				}
-			}
+			Administrator* administrator = new Administrator((*employers)[i].getLogin(), (*employers)[i].getPassword(), (*employers)[i].getStatus());
+			administrator->showInterface();
 		}
-		in.close();     // закрываем файл
-		if (validLogin == true && validPassword == true && isAdmin == true)
+		else if ((*employers)[i].getLogin() == login && (*employers)[i].getPassword() == password && (*employers)[i].getStatus() == "employer")
 		{
-			Administrator admin = Administrator(login, password, status);
-			admin.InteractionInterface();
+			Employer* employer = new Employer((*employers)[i].getLogin(), (*employers)[i].getPassword(), (*employers)[i].getStatus());
+			employer->showInterface();
 		}
-		else if (validLogin == true && validPassword == true && isAdmin == false)
-		{
-			Employer employer = Employer(login, password, status);
-			employer.InteractionInterface();
-		}
-		else
-		{
-			cout << "User is not found" << endl;
-		}
-	}
-	catch (exception& ex)
-	{
-		cout << ex.what() << endl;
 	}
 }

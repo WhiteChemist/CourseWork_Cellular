@@ -1,2 +1,25 @@
-﻿  Output.cpp
+﻿  Employers.cpp
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(45,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(55,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(71,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(79,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(90,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(99,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(110,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(120,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(136,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(144,20): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(146,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(159,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(161,22): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(427,20): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(442,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(460,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(480,21): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(800,20): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(811,20): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(825,20): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(837,20): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(855,22): warning C4018:  <: несоответствие типов со знаком и без знака
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Employers.cpp(880,22): warning C4018:  <: несоответствие типов со знаком и без знака
   CourseWrok_Cellular.vcxproj -> C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\Debug\CourseWrok_Cellular.exe

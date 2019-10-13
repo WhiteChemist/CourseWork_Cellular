@@ -3,11 +3,10 @@
 
 #include <iostream>
 #include "Headers.h";
-#include <algorithm>
 
 int main()
 {
-	CheckInput("employers.txt");
+	checkInput("employers.txt");
 	system("pause");
 }
 

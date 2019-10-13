@@ -1,4 +1,4 @@
-#include "Headers.h"
+п»ї#include "Headers.h"
 #include <iostream>
 #include <vector>
 #include <Windows.h>
@@ -6,7 +6,7 @@
 using namespace std;
 
 #pragma region IEmployer
-Abonent IEmployer::CreateAbonent()
+Abonent IEmployer::createAbonent()
 {
 	cout << "Input surname:";
 	string surname;
@@ -21,63 +21,168 @@ Abonent IEmployer::CreateAbonent()
 	string phone;
 	cin >> phone;
 	cout << "Input year:";
-	int year;
+	unsigned short int year;
 	cin >> year;
 	cout << "Input plane:";
 	string plane;
 	cin >> plane;
 	Abonent abonent = Abonent::Abonent(surname, name, midname, phone, year, plane);
+	try
+	{
+		if ((abonent.setMidName(midname) == false && abonent.setSurname(surname) == false) && (abonent.setName(name) == false && abonent.setPhone(phone) == false) && (abonent.setPlane(plane) == false && abonent.setYear(year) == false))
+			throw string("Error creating abonent. Try again");
+	}
+	catch (string ex)
+	{
+		showErrorMessage(ex);
+	}
 	return abonent;
 }
-void IEmployer::SearchPhone(vector<Abonent>* abonents, string phone)
+void IEmployer::searchPhone(vector<Abonent>* abonents, string phone)
 {
+	bool isFound = false;
 	if (phone != "")
 	{
-		for (int i = 0; i < (*abonents).size(); i++)
+		if (checkValidPhoneNumber(phone, "[0-9]{3}\\([0-9]{2}\\)[0-9]{3}-[0-9]{2}-[0-9]{2}", "\\+[0-9]{3}\\([0-9]{2}\\)[0-9]{3}-[0-9]{2}-[0-9]{2}"))
 		{
-			if ((*abonents)[i].GetPhone() == phone)
-				OutputMessage(("Surname: " + (*abonents)[i].GetSurname() + " Name: " + (*abonents)[i].GetName() + " MidName: " + (*abonents)[i].GetMidName() + " Year: ") + ((*abonents)[i].GetYear() + " Phone: " + (*abonents)[i].GetPhone() + " Plane: ") + (*abonents)[i].GetPlane());
+			for (int i = 0; i < (*abonents).size(); i++)
+			{
+				if ((*abonents)[i].getPhone() == phone)
+				{
+					showOutputMessage(("Surname: " + (*abonents)[i].getSurname() + " Name: " + (*abonents)[i].getName() + " MidName: " + (*abonents)[i].getMidName() + " Year: ") + ((*abonents)[i].getYear() + " Phone: " + (*abonents)[i].getPhone() + " Plane: ") + (*abonents)[i].getPlane());
+					isFound = true;
+					break;
+				}
+			}
+		}
+		else
+		{
+			showErrorMessage("mismatch format phone! Input correct phone number and try again");
 		}
 	}
 	else
 	{
 		cout << "Input phone:" << endl;
 		cin >> phone;
-		for (int i = 0; i < (*abonents).size(); i++)
+		if (checkValidPhoneNumber(phone, "[0-9]{3}\\([0-9]{2}\\)[0-9]{3}-[0-9]{2}-[0-9]{2}", "\\+[0-9]{3}\\([0-9]{2}\\)[0-9]{3}-[0-9]{2}-[0-9]{2}"))
 		{
-			if ((*abonents)[i].GetPhone() == phone)
-				OutputMessage(("Surname: " + (*abonents)[i].GetSurname() + " Name: " + (*abonents)[i].GetName() + " MidName: " + (*abonents)[i].GetMidName() + " Year: ") + ((*abonents)[i].GetYear() + " Phone: " + (*abonents)[i].GetPhone() + " Plane: ") + (*abonents)[i].GetPlane());
+			for (int i = 0; i < (*abonents).size(); i++)
+			{
+				if ((*abonents)[i].getPhone() == phone)
+				{
+					showOutputMessage(("Surname: " + (*abonents)[i].getSurname() + " Name: " + (*abonents)[i].getName() + " MidName: " + (*abonents)[i].getMidName() + " Year: ") + ((*abonents)[i].getYear() + " Phone: " + (*abonents)[i].getPhone() + " Plane: ") + (*abonents)[i].getPlane());
+					isFound = true;
+					break;
+				}
+			}
+		}
+		else
+		{
+			showErrorMessage("mismatch format phone! Input correct phone number and try again");
 		}
 	}
-
+	if (isFound == false)
+		showErrorMessage("Abonent hasn't been found");
 }
-void IEmployer::SearchSurname(vector<Abonent>* abonents, string surname)
+
+void IEmployer::outputAllAbonentsByYear(vector<Abonent>* abonents, unsigned short int year)
 {
-	if (surname != "")
+	bool isFound = false;
+	if (year == 0)
+	{
+		int tempYear;
+		cout << "Input year:" << endl;
+		cin >> tempYear;
 		for (int i = 0; i < (*abonents).size(); i++)
 		{
-			if ((*abonents)[i].GetSurname() == surname)
-				OutputMessage(("Surname: " + (*abonents)[i].GetSurname() + " Name: " + (*abonents)[i].GetName() + " MidName: " + (*abonents)[i].GetMidName() + " Year: ") + ((*abonents)[i].GetYear() + " Phone: " + (*abonents)[i].GetPhone() + " Plane: ") + (*abonents)[i].GetPlane());
+			if ((*abonents)[i].getYear() >= tempYear)
+			{
+				showOutputMessage(("Surname: " + (*abonents)[i].getSurname() + " Name: " + (*abonents)[i].getName() + " MidName: " + (*abonents)[i].getMidName() + " Year: ") + ((*abonents)[i].getYear() + " Phone: " + (*abonents)[i].getPhone() + " Plane: ") + (*abonents)[i].getPlane());
+				isFound = true;
+			}
 		}
+	}
 	else
 	{
-		cout << "Input surname:" << endl;
-		cin >> surname;
 		for (int i = 0; i < (*abonents).size(); i++)
 		{
-			if ((*abonents)[i].GetSurname() == surname)
-				OutputMessage(("Surname: "+(*abonents)[i].GetSurname() + " Name: " + (*abonents)[i].GetName() + " MidName: " + (*abonents)[i].GetMidName() + " Year: ") + ((*abonents)[i].GetYear() + " Phone: " + (*abonents)[i].GetPhone() + " Plane: ") + (*abonents)[i].GetPlane());
+			if ((*abonents)[i].getYear() >= year)
+			{
+				showOutputMessage(("Surname: " + (*abonents)[i].getSurname() + " Name: " + (*abonents)[i].getName() + " MidName: " + (*abonents)[i].getMidName() + " Year: ") + ((*abonents)[i].getYear() + " Phone: " + (*abonents)[i].getPhone() + " Plane: ") + (*abonents)[i].getPlane());
+				isFound = true;
+			}
 		}
 	}
+	if (isFound == false)
+	{
+		showErrorMessage("Abonents hasn't been found!");
+	}
 }
-void IEmployer::SearchYear(vector<Abonent>* abonents, int year)
+void IEmployer::searchSurname(vector<Abonent>* abonents, string surname)
 {
+	bool isFound = false;
+	if (abonents->size() == 0)
+	{
+		showErrorMessage("Please fill file with abonents and try again");
+	}
+	else
+	{
+		if (surname != "")
+			for (int i = 0; i < (*abonents).size(); i++)
+			{
+				if ((*abonents)[i].getSurname() == surname)
+				{
+					showOutputMessage(("Surname: " + (*abonents)[i].getSurname() + " Name: " + (*abonents)[i].getName() + " MidName: " + (*abonents)[i].getMidName() + " Year: ") + ((*abonents)[i].getYear() + " Phone: " + (*abonents)[i].getPhone() + " Plane: ") + (*abonents)[i].getPlane());
+					isFound = true;
+					break;
+				}
+				else
+				{
+					isFound = false;
+				}
+			}
+		else
+		{
+			cout << "Input surname:" << endl;
+			cin >> surname;
+			for (int i = 0; i < (*abonents).size(); i++)
+			{
+				if ((*abonents)[i].getSurname() == surname)
+				{
+					showOutputMessage(("Surname: " + (*abonents)[i].getSurname() + " Name: " + (*abonents)[i].getName() + " MidName: " + (*abonents)[i].getMidName() + " Year: ") + ((*abonents)[i].getYear() + " Phone: " + (*abonents)[i].getPhone() + " Plane: ") + (*abonents)[i].getPlane());
+					isFound = true;
+					break;
+				}
+				else
+				{
+					isFound = false;
+				}
+			}
+		}
+		
+	}
+	if (isFound == false)
+	{
+		showErrorMessage("Abonent hasn't been found");
+	}
+}
+void IEmployer::searchYear(vector<Abonent>* abonents, unsigned short int year)
+{
+	bool isFound = false;//Р¤Р»Р°Рі РѕС‚РѕР±СЂР°Р¶Р°РµС‚ РЅР°Р№РґРµРЅ Р»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ
 	if (year > 0)
 	{
 		for (int i = 0; i < (*abonents).size(); i++)
 		{
-			if ((*abonents)[i].GetYear() == year)
-				OutputMessage(("Surname: "+(*abonents)[i].GetSurname() + " Name: " + (*abonents)[i].GetName() + " MidName: " + (*abonents)[i].GetMidName() + " Year: ") + ((*abonents)[i].GetYear() + " Phone: " + (*abonents)[i].GetPhone() + " Plane: ") + (*abonents)[i].GetPlane());
+			if ((*abonents)[i].getYear() == year)
+			{
+				showOutputMessage(("Surname: " + (*abonents)[i].getSurname() + " Name: " + (*abonents)[i].getName() + " MidName: " + (*abonents)[i].getMidName() + " Year: ") + ((*abonents)[i].getYear() + " Phone: " + (*abonents)[i].getPhone() + " Plane: ") + (*abonents)[i].getPlane());
+				isFound = true;
+				break;
+			}
+			else
+			{
+				isFound = false;
+			}
 		}
 	}
 	else
@@ -86,69 +191,89 @@ void IEmployer::SearchYear(vector<Abonent>* abonents, int year)
 		cin >> year;
 		for (int i = 0; i < (*abonents).size(); i++)
 		{
-			if ((*abonents)[i].GetYear() == year)
-				OutputMessage(("Surname: "+(*abonents)[i].GetSurname() + " Name: " + (*abonents)[i].GetName() + " MidName: " + (*abonents)[i].GetMidName() + " Year: ") + ((*abonents)[i].GetYear() + " Phone: " + (*abonents)[i].GetPhone() + " Plane: ") + (*abonents)[i].GetPlane());
+			if ((*abonents)[i].getYear() == year)
+			{
+				showOutputMessage(("Surname: " + (*abonents)[i].getSurname() + " Name: " + (*abonents)[i].getName() + " MidName: " + (*abonents)[i].getMidName() + " Year: ") + ((*abonents)[i].getYear() + " Phone: " + (*abonents)[i].getPhone() + " Plane: ") + (*abonents)[i].getPlane());
+				isFound = true;
+				break;
+			}
+			else
+			{
+				isFound = false;
+			}
 		}
 	}
+	if (isFound == false)
+		showErrorMessage("Abonent hasn't been found");
 }
-void IEmployer::ShowAllAbonents(vector<Abonent>* abonents)
+void IEmployer::showAllAbonents(vector<Abonent>* abonents)
 {
 	setlocale(LC_ALL, "Russian");
 	if ((*abonents).size() == 0)
 	{
-		ErrorMessage("Список абонентов пустой!");
+		showErrorMessage("List abonents is empty!");
 	}
 	else
 	{
 		for (int i = 0; i < (*abonents).size(); i++)
 		{
-			OutputMessage(("Surname: " + (*abonents)[i].GetSurname() + " Name: " + (*abonents)[i].GetName() + " MidName: " + (*abonents)[i].GetMidName() + " Year: ") + ((*abonents)[i].GetYear() + " Phone: " + (*abonents)[i].GetPhone() + " Plane: ") + (*abonents)[i].GetPlane());
+			showOutputMessage(("Surname: " + (*abonents)[i].getSurname() + " Name: " + (*abonents)[i].getName() + " MidName: " + (*abonents)[i].getMidName() + " Year: ") + ((*abonents)[i].getYear() + " Phone: " + (*abonents)[i].getPhone() + " Plane: ") + (*abonents)[i].getPlane());
 		}
 	}
 }
-void IEmployer::SortSurname(vector<Abonent>* abonents)
+void IEmployer::sortSurname(vector<Abonent>* abonents)
 {
-	for (int i = 0; i < (*abonents).size(); i++)
+	if (abonents->size() == 0)
 	{
-		for (int j = 0; j < (*abonents).size(); j++)
-		{
-			if ((*abonents)[i].GetSurname()<(*abonents)[j].GetSurname())
-			{
-				swap((*abonents)[i], (*abonents)[j]);
-			}
-		}
+		showErrorMessage("Abonents not found! Please fill file and try again");
 	}
-}
-void IEmployer::SortYear(vector<Abonent>* abonents)
-{
-	try
-	{
+	else
 		for (int i = 0; i < (*abonents).size(); i++)
 		{
 			for (int j = 0; j < (*abonents).size(); j++)
 			{
-				if ((*abonents)[i].GetYear() < (*abonents)[j].GetYear())
+				if ((*abonents)[i].getSurname() < (*abonents)[j].getSurname())
 				{
 					swap((*abonents)[i], (*abonents)[j]);
 				}
 			}
 		}
+}
+void IEmployer::sortYear(vector<Abonent>* abonents)
+{
+	try
+	{
+		if (abonents->size() == 0)
+		{
+			showErrorMessage("Abonents not found! Please fill file and try again");
+		}
+		else
+			for (int i = 0; i < (*abonents).size(); i++)
+			{
+				for (int j = 0; j < (*abonents).size(); j++)
+				{
+					if ((*abonents)[i].getYear() < (*abonents)[j].getYear())
+					{
+						swap((*abonents)[i], (*abonents)[j]);
+					}
+				}
+			}
 	}
 	catch (exception& ex)
 	{
-		ErrorMessage(ex.what());
+		showErrorMessage(ex.what());
 	}
 }
-void IEmployer::GetAbonents(vector<Abonent>* abonents, string path)
+void IEmployer::getAbonents(vector<Abonent>* abonents, string path)
 {
-	auto temp = new Abonent[GetCountAbonents(path)];
+	auto temp = new Abonent[getCountAbonents(path)];
 	try
 	{
 		std::string line;
 		std::ifstream file(path);
 		if (file.is_open())
 		{
-			for (int i = 0; i < GetCountAbonents(path); i++)
+			for (int i = 0; i < getCountAbonents(path); i++)
 			{
 				while (std::getline(file, line))
 					if (line.find("*") != std::string::npos)
@@ -159,32 +284,32 @@ void IEmployer::GetAbonents(vector<Abonent>* abonents, string path)
 					}
 					else if (line.find("Surname:") != std::string::npos)
 					{
-						temp[i].SetSurname(line.substr(_countof("Surname:") - 1, line.capacity()));//делаем -1 т.к. не считывает первый символ фамилии
+						temp[i].setSurname(line.substr(_countof("Surname:") - 1, line.capacity()));//РґРµР»Р°РµРј -1 С‚.Рє. РЅРµ СЃС‡РёС‚С‹РІР°РµС‚ РїРµСЂРІС‹Р№ СЃРёРјРІРѕР» С„Р°РјРёР»РёРё
 
 					}
 					else if (line.find("Name:") != std::string::npos)
 					{
-						temp[i].SetName(line.substr(_countof("Name:") - 1, line.capacity()));
+						temp[i].setName(line.substr(_countof("Name:") - 1, line.capacity()));
 
 					}
-					else if (line.find("MidName:") != std::string::npos)
+					else if (line.find("Midname:") != std::string::npos)
 					{
-						temp[i].SetMidName(line.substr(_countof("MidName:") - 1, line.capacity()));
+						temp[i].setMidName(line.substr(_countof("Midname:") - 1, line.capacity()));
 
 					}
 					else if (line.find("Year:") != std::string::npos)
 					{
-						temp[i].SetYear(std::stoi(line.substr(_countof("Year:") - 1, line.capacity())));
+						temp[i].setYear(std::stoi(line.substr(_countof("Year:") - 1, line.capacity())));
 
 					}
 					else if (line.find("Phone:") != std::string::npos)
 					{
-						temp[i].SetPhone(line.substr(_countof("Phone:") - 1, line.capacity()));
+						temp[i].setPhone(line.substr(_countof("Phone:") - 1, line.capacity()));
 
 					}
 					else if (line.find("Plane:") != std::string::npos)
 					{
-						temp[i].SetPlane(line.substr(_countof("Plane:") - 1, line.capacity()));
+						temp[i].setPlane(line.substr(_countof("Plane:") - 1, line.capacity()));
 					}
 			}
 			std::cout << std::endl;
@@ -193,30 +318,30 @@ void IEmployer::GetAbonents(vector<Abonent>* abonents, string path)
 	}
 	catch (std::exception& ex)
 	{
-		ErrorMessage(ex.what());
+		showErrorMessage(ex.what());
 	}
 }
-string IEmployer::GetLogin()
+string IEmployer::getLogin()
 {
 	return this->login;
 }
-string IEmployer::GetPassword()
+string IEmployer::getPassword()
 {
 	return this->password;
 }
-void IEmployer::SetLogin(string login)
+void IEmployer::setLogin(string login)
 {
 	this->login = login;
 }
-void IEmployer::SetPassword(string password)
+void IEmployer::setPassword(string password)
 {
 	this->password = password;
 }
-void IEmployer::SetStatus(string status)
+void IEmployer::setStatus(string status)
 {
 	this->status = status;
 }
-string IEmployer::GetStatus()
+string IEmployer::getStatus()
 {
 	return this->status;
 }
@@ -227,7 +352,7 @@ IEmployer::IEmployer(string login, string password, string status)
 	this->password = password;
 	this->status = status;
 }
-int IEmployer::GetCountAbonents(string path)
+int IEmployer::getCountAbonents(string path)
 {
 	int count = 0;
 	try
@@ -256,10 +381,13 @@ IEmployer::~IEmployer()
 {
 
 }
-void IEmployer::InteractionInterface() {}
+void IEmployer::showInterface() {}
 #pragma endregion
 #pragma region Employer
-Employer::Employer() {}
+Employer::Employer() {
+	abonents = new vector<Abonent>();
+}
+
 Employer::Employer(string login, string password, string status) :IEmployer(login, password, status)
 {
 	string path;
@@ -267,13 +395,29 @@ Employer::Employer(string login, string password, string status) :IEmployer(logi
 	cin >> path;
 	this->pathAbonents = path;
 	abonents = new vector<Abonent>();
-	GetAbonents(abonents, pathAbonents);
+	getAbonents(abonents, pathAbonents);
+}
+Employer::Employer(string login, string password, string status, bool isAbonent) :IEmployer(login, password, status)
+{
+	if (isAbonent == true)
+	{
+		string path;
+		cout << "Input path abonents:";
+		cin >> path;
+		this->pathAbonents = path;
+		abonents = new vector<Abonent>();
+		getAbonents(abonents, pathAbonents);
+	}
+	else
+	{
+		abonents = new vector<Abonent>();
+	}
 }
 Employer::~Employer()
 {
-
+	abonents->clear();
 }
-void Employer::WriteInFileAbonent(string path, Abonent abonent)
+void Employer::writeInFileAbonent(string path, Abonent abonent)
 {
 	try
 	{
@@ -281,28 +425,31 @@ void Employer::WriteInFileAbonent(string path, Abonent abonent)
 		file.open(path, ios::app);
 		if (file.is_open())
 		{
-			file << "Surname:" << abonent.GetSurname() << endl;
-			file << "Name:" << abonent.GetName() << endl;
-			file << "MidName:" << abonent.GetMidName() << endl;
-			file << "Phone:" << abonent.GetPhone() << endl;
-			file << "Year:" << abonent.GetYear() << endl;
-			file << "Plane:" << abonent.GetPlane() << endl;
+			file << "Surname:" << abonent.getSurname() << endl;
+			file << "Name:" << abonent.getName() << endl;
+			file << "Midname:" << abonent.getMidName() << endl;
+			file << "Phone:" << abonent.getPhone() << endl;
+			file << "Year:" << abonent.getYear() << endl;
+			file << "Plane:" << abonent.getPlane() << endl;
 			file << "*" << endl;
 		}
 		file.close();
 	}
 	catch (exception& ex)
 	{
-		ErrorMessage(ex.what());
+		showErrorMessage(ex.what());
 	}
 }
-void Employer::InteractionInterface()
+void Employer::showInterface()
 {
+	Abonent tempabonent;
 	bool isExit = false;
 	int switcher;
 	while (isExit == false)
 	{
-		cout << "Please make a choice:" << endl;
+		showInfoMessage("--------------------------------------------------------------------------");
+		showInfoMessage("--------------------------User--------------------------------------------");
+		showInfoMessage("--------------------------------------------------------------------------");
 		cout << "0.Exit." << endl;
 		cout << "1.Create new abonent." << endl;
 		cout << "2.Sort by surname." << endl;
@@ -311,159 +458,162 @@ void Employer::InteractionInterface()
 		cout << "5.Search by phone." << endl;
 		cout << "6.Search by year." << endl;
 		cout << "7.Show all abonents." << endl;
+		cout << "Make a choice:";
 		cin >> switcher;
 		switch (switcher)
 		{
 		case 0:
 			isExit = true;
-
+			break;
 		case 1:
-			WriteInFileAbonent(pathAbonents, CreateAbonent());
-			GetAbonents(abonents, pathAbonents);
+			Write(pathAbonents);
+			abonents->clear();
+			getAbonents(abonents, pathAbonents);
 			break;
 		case 2:
-			SortSurname(abonents);
+			sortSurname(abonents);
 			break;
 		case 3:
-			SortYear(abonents);
+			sortYear(abonents);
 			break;
 		case 4:
-			SearchSurname(abonents, "");
+			searchSurname(abonents, "");
 			break;
 		case 5:
-			SearchPhone(abonents, "");
+			searchPhone(abonents, "");
 			break;
 		case 6:
-			SearchYear(abonents, 0);
+			searchYear(abonents, 0);
 			break;
 		case 7:
-			ShowAllAbonents(abonents);
+			showAllAbonents(abonents);
 			break;
 		default:
-			ErrorMessage("Please input correct value");
+			showErrorMessage("Please input correct value");
 			break;
 		}
 	}
 }
+
 #pragma endregion
 #pragma region Administrator
-Employer Administrator::CreateNewEmployer()
+Employer Administrator::createNewEmployer()
 {
 	Employer employer;
 	string login;
 	string password;
 	cout << "Input Login:";
 	cin >> login;
-	employer.SetLogin(login);
+	employer.setLogin(login);
 	cout << endl << "Input Password:";
 	cin >> password;
-	employer.SetPassword(password);
+	employer.setPassword(password);
 	string status;
 	cout << "Input Status:" << endl;
 	cin >> status;
-	employer.SetStatus(status);
+	employer.setStatus(status);
 	return employer;
 }
-void Administrator::ShowEmployers(vector<Employer>* admemployers)
+void Employer::Write(string path) {
+
+	Abonent temp = createAbonent();
+	if (formatMatching(temp) == true)
+	{
+		writeInFileAbonent(path, temp);
+	}
+	else
+	{
+		showErrorMessage("Error format matching");
+	}
+}
+bool Employer::formatMatching(Abonent abonent)
+{
+	vector<bool>* checkAbonent = new vector<bool>();
+	(*checkAbonent).push_back(checkValidSurname(abonent.getSurname(), "[^0-9]{1,20}", 20));
+	(*checkAbonent).push_back(checkValidName(abonent.getName(), "[^0-9]{1,30}", 30));
+	(*checkAbonent).push_back(checkValidMidName(abonent.getMidName(), "[^0-9]{1,30}", 30));
+	(*checkAbonent).push_back(checkValidYear(abonent.getYear(), "[0-9]{4}"));
+	(*checkAbonent).push_back(checkValidPhoneNumber(abonent.getPhone(), "[0-9]{3}\\([0-9]{2}\\)[0-9]{3}-[0-9]{2}-[0-9]{2}", "\\+[0-9]{3}\\([0-9]{2}\\)[0-9]{3}-[0-9]{2}-[0-9]{2}"));
+	(*checkAbonent).push_back(checkValidPlane(abonent.getPlane(), "[^0-9]{1,20}", 20));
+	for (int i = 0; i < (*checkAbonent).size(); i++)
+	{
+		if ((*checkAbonent)[i] == false)
+		{
+			return false;
+			break;
+		}
+	}
+	(*checkAbonent).clear();//РѕСЃРІРѕР±РѕР¶РґР°РµРј РїР°РјСЏС‚СЊ
+	return true;
+}
+void Administrator::showEmployers(vector<Employer>* admemployers)
 {
 	if ((*admemployers).size() != 0)
 	{
 		for (int i = 0; i < (*admemployers).size(); i++)
 		{
-			OutputMessage(("Login: " + (*admemployers)[i].GetLogin() + " ") + ("Password: " + (*admemployers)[i].GetPassword() + " ") + ("Status: " + (*admemployers)[i].GetStatus()));
+			showOutputMessage(("Login: " + (*admemployers)[i].getLogin() + " ") + ("Password: " + (*admemployers)[i].getPassword() + " ") + ("Status: " + (*admemployers)[i].getStatus()));
 		}
-		
+
 	}
 	else
 	{
-		ErrorMessage("Please fill employers from file and repeat again");
+		showErrorMessage("Please fill employers from file and repeat again");
 	}
 
 }
-void Administrator::DeleteEmployer(vector<Employer>* admemployers)
+void Administrator::deleteEmployer(vector<Employer>* admemployers)
 {
 	string login;
 	cout << "Input login:" << ends;
+	cin >> login;
 	if ((*admemployers).size() != 0)
 	{
 		for (int i = 0; i < (*admemployers).size(); i++)
 		{
-			if ((*admemployers)[i].GetLogin() == login)
+			if ((*admemployers)[i].getLogin() == login)
 			{
 				(*admemployers).erase((*admemployers).begin() + i);
-				RewriteEmployers(admemployers);
-				InfoMessage("Employer has been deleted");
+				rewriteEmployers(admemployers);
+				showInfoMessage("Employer has been deleted");
 			}
 		}
 	}
 	else
 	{
-		ErrorMessage("Please fill vector with employers and will try again");
+		showErrorMessage("Please fill vector with employers and will try again");
 	}
 
 }
-void Administrator::DeleteEmployer(vector<Employer>* admemployers, string login)
+void Administrator::deleteEmployer(vector<Employer>* admemployers, string login)
 {
-	if ((*admemployers).size() != 0)
+	if (login != "")
 	{
-		for (int i = 0; i < (*admemployers).size(); i++)
+		if ((*admemployers).size() != 0)
 		{
-			if ((*admemployers)[i].GetLogin() == login)
+			for (int i = 0; i < (*admemployers).size(); i++)
 			{
-				(*admemployers).erase((*admemployers).begin() + i);
-				RewriteEmployers(admemployers);
+				if ((*admemployers)[i].getLogin() == login)
+				{
+					(*admemployers).erase((*admemployers).begin() + i);
+					rewriteEmployers(admemployers);
+				}
 			}
+		}
+		else
+		{
+			showErrorMessage("Please fill vector with employers and will try again");
 		}
 	}
 	else
 	{
-		ErrorMessage("Please fill vector with employers and will try again");
+		showErrorMessage("Login must not be empty");
 	}
 
 }
-void Administrator::GetEmployers(vector<Employer>(*admemployers), string path)
+unsigned short int Administrator::getCountEmployers(string path)
 {
-	auto temp = new Employer[GetCountEmployers(path)];
-	try
-	{
-		std::string line;
-		std::ifstream file(path);
-		if (file.is_open())
-		{
-			for (int i = 0; i < GetCountEmployers(path); i++)
-			{
-				while (std::getline(file, line))
-					if (line.find("*") != std::string::npos)
-					{
-						(*admemployers).push_back(temp[i]);
-						i++;
-
-					}
-					else if (line.find("Login") != string::npos)
-					{
-						temp[i].SetLogin(line.substr(_countof("Login:") - 1, line.capacity()));//делаем -1 т.к. не считывает первый символ фамилии
-					}
-					else if (line.find("Password:") != string::npos)
-					{
-						temp[i].SetPassword(line.substr(_countof("Password:") - 1, line.capacity()));
-					}
-					else if (line.find("Status:") != string::npos)
-					{
-						temp[i].SetStatus(line.substr(_countof("Status:") - 1, line.capacity()));
-					}
-			}
-			std::cout << std::endl;
-		}
-		file.close();
-	}
-	catch (std::exception& ex)
-	{
-		ErrorMessage(ex.what());
-	}
-}
-int Administrator::GetCountEmployers(string path)
-{
-	int count = 0;
+	unsigned short int count = 0;
 	try
 	{
 		std::string line;
@@ -482,9 +632,53 @@ int Administrator::GetCountEmployers(string path)
 	}
 	catch (std::exception& ex)
 	{
-		ErrorMessage(ex.what());
+		showErrorMessage(ex.what());
 	}
 	return count;
+}
+void Administrator::getEmployers(vector<Employer>* admemployers, string path)
+{
+	Employer* temp;
+	string login;
+	string password;
+	string status;
+	try
+	{
+		std::string line;
+		std::ifstream file(path);
+		if (file.is_open())
+		{
+			for (int i = 0; i < getCountEmployers(path);)
+			{
+				while (std::getline(file, line))
+					if (line.find("*") != std::string::npos)
+					{
+						temp = new Employer(login, password, status, false);
+						(*admemployers).push_back((*temp));
+						temp++;
+						i++;
+					}
+					else if (line.find("Login") != string::npos)
+					{
+						login = line.substr(_countof("Login:") - 1, line.capacity());//Г¤ГҐГ«Г ГҐГ¬ -1 ГІ.ГЄ. Г­ГҐ Г±Г·ГЁГІГ»ГўГ ГҐГІ ГЇГҐГ°ГўГ»Г© Г±ГЁГ¬ГўГ®Г« ГґГ Г¬ГЁГ«ГЁГЁ
+					}
+					else if (line.find("Password:") != string::npos)
+					{
+						password = line.substr(_countof("Password:") - 1, line.capacity());
+					}
+					else if (line.find("Status:") != string::npos)
+					{
+						status = line.substr(_countof("Status:") - 1, line.capacity());
+					}
+			}
+			std::cout << std::endl;
+		}
+		file.close();
+	}
+	catch (std::exception& ex)
+	{
+		showErrorMessage(ex.what());
+	}
 }
 Administrator::Administrator(string login, string password, string status) :IEmployer(login, password, status)
 {
@@ -503,16 +697,16 @@ Administrator::Administrator(string login, string password, string status) :IEmp
 		}
 		abonents = new vector<Abonent>();
 		admemployers = new vector<Employer>();
-		GetAbonents(abonents, pathAbonents);
-		GetEmployers(admemployers, pathEmployers);
+		getAbonents(abonents, pathAbonents);
+		getEmployers(admemployers, pathEmployers);
 	}
 	catch (exception& ex)
 	{
-		ErrorMessage(ex.what());
+		showErrorMessage(ex.what());
 	}
 
 }
-void Administrator::WriteInFileAbonent(string path, Abonent abonent)
+void Administrator::writeInFileAbonent(string path, Abonent abonent)
 {
 	try
 	{
@@ -520,21 +714,21 @@ void Administrator::WriteInFileAbonent(string path, Abonent abonent)
 		file.open(path);
 		if (file.is_open())
 		{
-			file << "Surname:" << abonent.GetSurname() << endl;
-			file << "Name:" << abonent.GetName() << endl;
-			file << "MidName:" << abonent.GetMidName() << endl;
-			file << "Phone:" << abonent.GetPhone() << endl;
-			file << "Year:" << abonent.GetYear() << endl;
-			file << "Current Plane:" << abonent.GetPlane() << endl;
+			file << "Surname:" << abonent.getSurname() << endl;
+			file << "Name:" << abonent.getName() << endl;
+			file << "Midname:" << abonent.getMidName() << endl;
+			file << "Phone:" << abonent.getPhone() << endl;
+			file << "Year:" << abonent.getYear() << endl;
+			file << "Plane:" << abonent.getPlane() << endl;
 			file << "*" << endl;
 		}
 	}
 	catch (exception& ex)
 	{
-		ErrorMessage(ex.what());
+		showErrorMessage(ex.what());
 	}
 }
-void Administrator::WriteInFileEmployer(string path, Employer employer)
+void Administrator::writeInFileEmployer(string path, Employer employer)
 {
 	try
 	{
@@ -542,24 +736,26 @@ void Administrator::WriteInFileEmployer(string path, Employer employer)
 		file.open(path, ios::app);
 		if (file.is_open())
 		{
-			file << "Login:" << employer.GetLogin() << endl;
-			file << "Password:" << employer.GetPassword() << endl;
-			file << "Status:" << employer.GetStatus() << endl;
+			file << "Login:" << employer.getLogin() << endl;
+			file << "Password:" << employer.getPassword() << endl;
+			file << "Status:" << employer.getStatus() << endl;
 			file << "*" << endl;
 		}
 	}
 	catch (exception& ex)
 	{
-		ErrorMessage(ex.what());
+		showErrorMessage(ex.what());
 	}
 }
-void Administrator::InteractionInterface()
+void Administrator::showInterface()
 {
 	bool isExit = false;
 	while (isExit == false)
 	{
 		int switcher;
-		cout << "Please make a choice:" << endl;
+		showInfoMessage("--------------------------------------------------------------------------");
+		showInfoMessage("--------------------------Administrator-----------------------------------");
+		showInfoMessage("--------------------------------------------------------------------------");
 		cout << "0. Exit." << endl;
 		cout << "1. Create new employer." << endl;
 		cout << "2. Create new abonents." << endl;
@@ -574,6 +770,8 @@ void Administrator::InteractionInterface()
 		cout << "11.Search by surname." << endl;
 		cout << "12.Search by phone." << endl;
 		cout << "13.Search by year." << endl;
+		cout << "14.Show all abonents by year" << endl;
+		cout << "Make a choice:";
 		cin >> switcher;
 		switch (switcher)
 		{
@@ -581,72 +779,59 @@ void Administrator::InteractionInterface()
 			isExit = true;
 			break;
 		case 1:
-			WriteInFileEmployer(pathEmployers, CreateNewEmployer());
-			GetEmployers(admemployers, pathEmployers);
+			writeInFileEmployer(pathEmployers, createNewEmployer());
+			admemployers->clear();
+			getEmployers(admemployers, pathEmployers);
 			break;
 		case 2:
-			WriteInFileAbonent(pathAbonents, CreateAbonent());
-			GetAbonents(abonents, pathAbonents);
+			writeInFileAbonent(pathAbonents, createAbonent());
+			abonents->clear();
+			getAbonents(abonents, pathAbonents);
 			break;
 		case 3:
-			ShowAllAbonents(abonents);
+			showAllAbonents(abonents);
 			break;
 		case 4:
-			ShowEmployers(admemployers);
+			showEmployers(admemployers);
 			break;
 		case 5:
-			DeleteEmployer(admemployers);
-			RewriteEmployers(admemployers);
+			deleteEmployer(admemployers);
+			rewriteEmployers(admemployers);
 			break;
 		case 6:
-			int switcher_second;
-			cout << "Make a choice:" << endl;
-			cout << "1. Delete abonent by phone." << endl;
-			cout << "2. Delete abonent by surname." << endl;
-			cin >> switcher_second;
-			switch (switcher_second)
-			{
-			case 1:
-				DeleteAbonentByPhone();
-				RewriteAbonents(abonents);
-				break;
-			case 2:
-				DeleteAbonentBySurname();
-				RewriteAbonents(abonents);
-				break;
-			default:
-				cout << "Incorrect input!" << endl;
-				break;
-			}
+			DeleteAbonent(abonents);
 			break;
 		case 7:
-			SetPathAbonents();
+			setPathAbonents();
 			break;
 		case 8:
-			SetPathEmployers();
+			setPathEmployers();
 			break;
 		case 9:
-			SortSurname(abonents);
+			sortSurname(abonents);
 			break;
 		case 10:
-			SortYear(abonents);
+			sortYear(abonents);
 			break;
 		case 11:
-			SearchSurname(abonents,"");//можем передавать пустую строку чтобы в последствии ее внести
+			searchSurname(abonents, "");//РјРѕР¶РµРј РїРµСЂРµРґР°РІР°С‚СЊ РїСѓСЃС‚СѓСЋ СЃС‚СЂРѕРєСѓ С‡С‚РѕР±С‹ РІ РїРѕСЃР»РµРґСЃС‚РІРёРё РµРµ РІРЅРµСЃС‚Рё
 			break;
 		case 12:
-			SearchPhone(abonents,"");
+			searchPhone(abonents, "");
 			break;
 		case 13:
-			SearchYear(abonents, 0);//можем передавать 0 чтобы в последствии его ввести
+			searchYear(abonents, 0);//РјРѕР¶РµРј РїРµСЂРµРґР°РІР°С‚СЊ 0 С‡С‚РѕР±С‹ РІ РїРѕСЃР»РµРґСЃС‚РІРёРё РµРіРѕ РІРІРµСЃС‚Рё
+			break;
+		case 14:
+			outputAllAbonentsByYear(abonents, 0);
 			break;
 		default:
-			ErrorMessage("Please input correct value");
+			showErrorMessage("Please input correct value");
 			break;
 		}
 	}
 }
-bool Administrator::CheckOnValidLogin(string login, string path)
+bool Administrator::checkOnValidLogin(string login, string path)
 {
 	try
 	{
@@ -660,7 +845,6 @@ bool Administrator::CheckOnValidLogin(string login, string path)
 				{
 					break;
 					return true;
-
 				}
 			}
 		}
@@ -668,63 +852,97 @@ bool Administrator::CheckOnValidLogin(string login, string path)
 	}
 	catch (std::exception& ex)
 	{
-		ErrorMessage(ex.what());
+		showErrorMessage(ex.what());
 	}
 	return false;
 }
-void Administrator::DeleteAbonentByPhone()
+void Administrator::deleteAbonentByPhone()
 {
+	bool isFound = false;
 	string phone;
 	cout << "Input phone:" << ends;
 	cin >> phone;
 	for (int i = 0; i < (*abonents).size(); i++)
 	{
-		if ((*abonents)[i].GetPhone() == phone)
+		if ((*abonents)[i].getPhone() == phone)
 		{
+			isFound = true;
 			(*abonents).erase((*abonents).begin() + i);
-			RewriteAbonents(abonents);
+			rewriteAbonents(abonents);
+			break;
+		}
+		else
+		{
+			isFound = false;
 		}
 	}
+	if (isFound == false)
+		showErrorMessage("Abonent hasn't been found");
 }
-void Administrator::DeleteAbonentByPhone(string phone)
+void Administrator::deleteAbonentByPhone(string phone)
 {
+	bool isFound = false;
 	for (int i = 0; i < (*abonents).size(); i++)
 	{
-		if ((*abonents)[i].GetPhone() == phone)
+		if ((*abonents)[i].getPhone() == phone)
 		{
+			isFound = true;
 			(*abonents).erase((*abonents).begin() + i);
-			RewriteAbonents(abonents);
+			rewriteAbonents(abonents);
+			break;
+		}
+		else
+		{
+			isFound = false;
 		}
 	}
+	if (isFound == false)
+		showErrorMessage("Abonent hasn't been found");
 }
-void Administrator::DeleteAbonentBySurname()
+void Administrator::deleteAbonentBySurname()
 {
+	bool isFound = false;
 	string surname;
 	cout << "Input surname abonent:" << ends;
 	cin >> surname;
 	for (int i = 0; i < (*abonents).size(); i++)
 	{
-		if ((*abonents)[i].GetSurname() == surname)
+		if ((*abonents)[i].getSurname() == surname)
 		{
+			isFound = true;
 			(*abonents).erase((*abonents).begin() + i);
-			RewriteAbonents(abonents);
+			rewriteAbonents(abonents);
+			break;
 		}
-
+		else
+		{
+			isFound = false;
+		}
 	}
+	if (isFound == false)
+		showErrorMessage("Abonent hasn't been found");
 }
-void Administrator::DeleteAbonentBySurname(string surname)
+void Administrator::deleteAbonentBySurname(string surname)
 {
+	bool isFound = false;
 	for (int i = 0; i < (*abonents).size(); i++)
 	{
-		if ((*abonents)[i].GetSurname() == surname)
+		if ((*abonents)[i].getSurname() == surname)
 		{
+			isFound = true;
 			(*abonents).erase((*abonents).begin() + i);
-			RewriteAbonents(abonents);
+			rewriteAbonents(abonents);
+			break;
 		}
-
+		else
+		{
+			isFound = false;
+		}
 	}
+	if (isFound == false)
+		showErrorMessage("Abonent hasn't been found");
 }
-void Administrator::RewriteAbonents(vector<Abonent>* abonents)
+void Administrator::rewriteAbonents(vector<Abonent>* abonents)
 {
 	try
 	{
@@ -734,22 +952,22 @@ void Administrator::RewriteAbonents(vector<Abonent>* abonents)
 		{
 			for (int i = 0; i < (*abonents).size(); i++)
 			{
-				file << "Surname:" << (*abonents)[i].GetSurname() << endl;
-				file << "Name:" << (*abonents)[i].GetName() << endl;
-				file << "MidName:" << (*abonents)[i].GetMidName() << endl;
-				file << "Phone:" << (*abonents)[i].GetPhone() << endl;
-				file << "Year:" << (*abonents)[i].GetYear() << endl;
-				file << "Current Plane:" << (*abonents)[i].GetPlane() << endl;
+				file << "Surname:" << (*abonents)[i].getSurname() << endl;
+				file << "Name:" << (*abonents)[i].getName() << endl;
+				file << "Midname:" << (*abonents)[i].getMidName() << endl;
+				file << "Phone:" << (*abonents)[i].getPhone() << endl;
+				file << "Year:" << (*abonents)[i].getYear() << endl;
+				file << "Plane:" << (*abonents)[i].getPlane() << endl;
 				file << "*" << endl;
 			}
 		}
 	}
 	catch (exception& ex)
 	{
-		ErrorMessage(ex.what());
+		showErrorMessage(ex.what());
 	}
 }
-void Administrator::RewriteEmployers(vector<Employer>* admemployers)
+void Administrator::rewriteEmployers(vector<Employer>* admemployers)
 {
 	try
 	{
@@ -759,9 +977,9 @@ void Administrator::RewriteEmployers(vector<Employer>* admemployers)
 		{
 			for (int i = 0; i < (*admemployers).size(); i++)
 			{
-				file << "Login:" << (*admemployers)[i].GetLogin() << endl;
-				file << "Password:" << (*admemployers)[i].GetPassword() << endl;
-				file << "Status:" << (*admemployers)[i].GetStatus() << endl;
+				file << "Login:" << (*admemployers)[i].getLogin() << endl;
+				file << "Password:" << (*admemployers)[i].getPassword() << endl;
+				file << "Status:" << (*admemployers)[i].getStatus() << endl;
 				file << "*" << endl;
 			}
 
@@ -769,14 +987,50 @@ void Administrator::RewriteEmployers(vector<Employer>* admemployers)
 	}
 	catch (exception& ex)
 	{
-		ErrorMessage(ex.what());
+		showErrorMessage(ex.what());
 	}
 }
-string Administrator::GetPathAbonents()
+void Administrator::DeleteAbonent(vector<Abonent>* abonents)
+{
+	if (abonents->size() == 0)
+	{
+		showErrorMessage("Please fill file with abonents and try again");
+	}
+	else
+	{
+		bool isExit = false;
+		while (isExit == false)
+		{
+			int switcher_second;
+			cout << "Make a choice:" << endl;
+			cout << "0. Exit" << endl;
+			cout << "1. Delete abonent by phone." << endl;
+			cout << "2. Delete abonent by surname." << endl;
+			cin >> switcher_second;
+			switch (switcher_second)
+			{
+			case 0:
+				isExit = true;
+				break;
+			case 1:
+				deleteAbonentByPhone();
+				rewriteAbonents(abonents);
+				break;
+			case 2:
+				deleteAbonentBySurname();
+				rewriteAbonents(abonents);
+				break;
+			default:
+				showErrorMessage("Incorrect input");
+			}
+		}
+	}
+}
+string Administrator::getPathAbonents()
 {
 	return this->pathAbonents;
 }
-void Administrator::SetPathAbonents()
+void Administrator::setPathAbonents()
 {
 	string path;
 	cout << "Input new path:" << ends;
@@ -784,17 +1038,17 @@ void Administrator::SetPathAbonents()
 	if (path != "")
 		this->pathAbonents = path;
 }
-void Administrator::SetPathAbonents(string path)
+void Administrator::setPathAbonents(string path)
 {
 
 	if (path != "")
 		this->pathAbonents = path;
 }
-string Administrator::GetPathEmployers()
+string Administrator::getPathEmployers()
 {
 	return this->pathEmployers;
 }
-void Administrator::SetPathEmployers()
+void Administrator::setPathEmployers()
 {
 	string path;
 	cout << "Input new path:" << ends;
@@ -802,21 +1056,21 @@ void Administrator::SetPathEmployers()
 	if (path != "")
 		this->pathEmployers = path;
 }
-void Administrator::SetPathEmployers(string path)
+void Administrator::setPathEmployers(string path)
 {
 	if (path != "")
 		this->pathEmployers = path;
 }
-void Administrator::GetAbonents(vector<Abonent>* abonents, string path)
+void Administrator::getAbonents(vector<Abonent>* abonents, string path)
 {
-	Abonent* temp = new Abonent[GetCountAbonents(path)];
+	Abonent* temp = new Abonent[getCountAbonents(path)];
 	try
 	{
 		std::string line;
 		std::ifstream file(path);
 		if (file.is_open())
 		{
-			for (int i = 0; i < GetCountAbonents(path); i++)
+			for (int i = 0; i < getCountAbonents(path); i++)
 			{
 				while (std::getline(file, line))
 					if (line.find("*") != std::string::npos)
@@ -827,32 +1081,32 @@ void Administrator::GetAbonents(vector<Abonent>* abonents, string path)
 					}
 					else if (line.find("Surname:") != std::string::npos)
 					{
-						temp[i].SetSurname(line.substr(_countof("Surname:") - 1, line.capacity()));//делаем -1 т.к. не считывает первый символ фамилии
+						temp[i].setSurname(line.substr(_countof("Surname:") - 1, line.capacity()));//РґРµР»Р°РµРј -1 С‚.Рє. РЅРµ СЃС‡РёС‚С‹РІР°РµС‚ РїРµСЂРІС‹Р№ СЃРёРјРІРѕР» С„Р°РјРёР»РёРё
 
 					}
 					else if (line.find("Name:") != std::string::npos)
 					{
-						temp[i].SetName(line.substr(_countof("Name:") - 1, line.capacity()));
+						temp[i].setName(line.substr(_countof("Name:") - 1, line.capacity()));
 
 					}
-					else if (line.find("MidName:") != std::string::npos)
+					else if (line.find("Midname:") != std::string::npos)
 					{
-						temp[i].SetMidName(line.substr(_countof("MidName:") - 1, line.capacity()));
+						temp[i].setMidName(line.substr(_countof("Midname:") - 1, line.capacity()));
 
 					}
 					else if (line.find("Year:") != std::string::npos)
 					{
-						temp[i].SetYear(std::stoi(line.substr(_countof("Year:") - 1, line.capacity())));
+						temp[i].setYear(std::stoi(line.substr(_countof("Year:") - 1, line.capacity())));
 
 					}
 					else if (line.find("Phone:") != std::string::npos)
 					{
-						temp[i].SetPhone(line.substr(_countof("Phone:") - 1, line.capacity()));
+						temp[i].setPhone(line.substr(_countof("Phone:") - 1, line.capacity()));
 
 					}
 					else if (line.find("Plane:") != std::string::npos)
 					{
-						temp[i].SetPlane(line.substr(_countof("Plane:") - 1, line.capacity()));
+						temp[i].setPlane(line.substr(_countof("Plane:") - 1, line.capacity()));
 					}
 			}
 			std::cout << std::endl;
@@ -861,9 +1115,10 @@ void Administrator::GetAbonents(vector<Abonent>* abonents, string path)
 	}
 	catch (std::exception& ex)
 	{
-		ErrorMessage(ex.what());
+		showErrorMessage(ex.what());
 	}
 }
+
 Administrator::~Administrator()
 {
 	(*abonents).clear();

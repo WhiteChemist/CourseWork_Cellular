@@ -2,7 +2,11 @@ Login:O
 Password:O
 Status:admin
 *
-Login:Ekaterina
-Password:Ekat12345
+Login:Sergei
+Password:Serg
 Status:employer
+*
+Login:Pavel
+Password:pav
+Status:admin
 *

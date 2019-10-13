@@ -2,15 +2,15 @@
 #include <iostream>
 using namespace std;
 
-void ErrorMessage(string message)
+void showErrorMessage(string message)
 {
 	cout << "\x1b[31;1m" << message << "\x1b[0m" << endl;
 }
-void InfoMessage(string message)
+void showInfoMessage(string message)
 {
 	cout << "\x1b[34;1m" << message << "\x1b[0m" << endl;
 }
-void OutputMessage(string message)
+void showOutputMessage(string message)
 {
 	try
 	{
