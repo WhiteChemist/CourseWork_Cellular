@@ -41,17 +41,19 @@
 		bool setPhone(string phone);//Установить телефон
 		const string getPlane();//Получить план
 		bool setPlane(string plane);//Установить план
-	#pragma endregion
+		static bool checkFieldsObject(Abonent abonent,string surname,string name,string midname,string phone,unsigned short int year,string plnae);
+		static bool isNullObject(Abonent abonent);
+#pragma endregion
 	};
 
 	#pragma region RegularExpressions
-	bool checkValidSurname(string str, string templateRegex, int countCorrectSymbols);
-	bool checkValidName(string str, string templateRegex, int countCorrectSymbols);
-	bool checkValidMidName(string str, string templateRegex, int countCorrectSymbols);
-	bool checkValidYear(unsigned short int year,string templateRegex);
-	bool checkValidPhoneNumber(string phone, string templateRegex);
-	bool checkValidPhoneNumber(string phone, string templateRegex, string templateRegexSecond);
-	bool checkValidPlane(string str, string templateRegex, int countCorrectSymbols);
+	bool checkValidSurname(string str, string templateRegex, int countCorrectSymbols);//проверка фамилии на корректность
+	bool checkValidName(string str, string templateRegex, int countCorrectSymbols);//проверка имени на корректность
+	bool checkValidMidName(string str, string templateRegex, int countCorrectSymbols);//проверка отчества на корректность
+	bool checkValidYear(unsigned short int year,string templateRegex);//проверка года рождения на корректность
+	bool checkValidPhoneNumber(string phone, string templateRegex);//проверка мобильного телефона на корректность
+	bool checkValidPhoneNumber(string phone, string templateRegex, string templateRegexSecond);//проверка мобильного телефона на корректность с двух форматов
+	bool checkValidPlane(string str, string templateRegex, int countCorrectSymbols);//проверка плана абонента на корректность
 	#pragma endregion
 	struct IEmployer
 	{
@@ -135,3 +137,4 @@
 	};
 
 	#endif
+	int CorrectInput(int variable);//проверка на корректность ввода типа int

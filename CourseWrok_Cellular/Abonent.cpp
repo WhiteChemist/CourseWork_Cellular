@@ -46,7 +46,7 @@ bool Abonent::setSurname(string surname)
 	}
 	else
 	{
-		showErrorMessage("Please input correct surname plane 30 character max");
+		showErrorMessage("Please input correct surname plane 20 character max");
 		return false;
 	}
 }
@@ -114,6 +114,48 @@ bool Abonent::setPlane(string plane)
 	else
 	{
 		showErrorMessage("Please input correct plane 20 character max");
+		return false;
+	}
+}
+bool Abonent::checkFieldsObject(Abonent abonent,string surname, string name, string midname, string phone, unsigned short int year, string plane)
+{
+	bool isState = false;
+	bool fiedsObject[6]{abonent.setSurname(surname),abonent.setName(name),abonent.setMidName(midname),abonent.setPhone(phone),abonent.setYear(year),abonent.setPlane(plane)};
+	for (int i = 0; i < 6; i++)
+	{
+		if (fiedsObject[i] == false)
+			return false;
+	}
+	return true;
+}
+bool Abonent::isNullObject(Abonent abonent)
+{
+	if (abonent.getMidName() == "")
+	{
+		return true;
+	}
+	else if (abonent.getName() == "")
+	{ 
+		return true;
+	}
+	else if (abonent.getSurname() == "")
+	{ 
+		return true;
+	}
+	else if (abonent.getPhone() == "")
+	{ 
+		return true;
+	}
+	else if (abonent.getPlane() == "")
+	{ 
+		return true;
+	}
+	else if (abonent.getYear() == 0)
+	{
+		return true;
+	}
+	else
+	{
 		return false;
 	}
 }

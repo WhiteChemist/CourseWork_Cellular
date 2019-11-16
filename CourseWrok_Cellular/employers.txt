@@ -10,3 +10,15 @@ Login:Pavel
 Password:pav
 Status:admin
 *
+Login:Qwerty
+Password:polin
+Status:employer
+*
+Login:Poland
+Password:Pol1234
+Status:admin
+*
+Login:Vasia
+Password:Pupkin
+Status:admin
+*
