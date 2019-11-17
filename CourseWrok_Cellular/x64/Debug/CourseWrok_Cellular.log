@@ -1,2 +1,19 @@
-﻿  Employers.cpp
+﻿  Abonent.cpp
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Abonent.cpp(42,32): warning C4129: *: неизвестная escape-последовательность
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Abonent.cpp(42,32): warning C4129: $: неизвестная escape-последовательность
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Abonent.cpp(55,26): warning C4129: *: неизвестная escape-последовательность
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Abonent.cpp(55,26): warning C4129: $: неизвестная escape-последовательность
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Abonent.cpp(68,32): warning C4129: *: неизвестная escape-последовательность
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Abonent.cpp(68,32): warning C4129: $: неизвестная escape-последовательность
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Abonent.cpp(95,35): warning C4129: -: неизвестная escape-последовательность
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Abonent.cpp(109,29): warning C4129: *: неизвестная escape-последовательность
+  CourseWork_Cellular.cpp
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\Abonent.cpp(109,29): warning C4129: $: неизвестная escape-последовательность
+  Employers.cpp
+  Output.cpp
+  RegularExpressions.cpp
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\CourseWork_Cellular.cpp(5,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+  Security.cpp
+  Создание кода...
+C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\CourseWrok_Cellular\RegularExpressions.cpp(50,10): warning C4101: sPhone: неиспользованная локальная переменная
   CourseWrok_Cellular.vcxproj -> C:\Users\WhiteChemist\source\repos\CourseWrok_Cellular\x64\Debug\CourseWrok_Cellular.exe

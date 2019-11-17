@@ -4,11 +4,11 @@
 	using namespace std;
 	#ifndef Headers
 	#define Headers
-	void checkInput(string path);
+	void checkInput(string path);//проверка ввода
 	#pragma region Output
-	void showErrorMessage(string message);
-	void showInfoMessage(string message);
-	void showOutputMessage(string message);
+	void showErrorMessage(string message);//вывод сообщения об ошибке
+	void showInfoMessage(string message);//вывод информационного сообщения
+	void showOutputMessage(string message);//вывод текста
 	#pragma endregion
 
 	struct Abonent {
